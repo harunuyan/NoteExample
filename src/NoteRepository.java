@@ -44,7 +44,7 @@ public class NoteRepository implements INoteManager {
         return null;
     }
 
-    public void search(String message) {
+    public void showWithMessage(String message) {
         for (int i = 0; i < notes.size(); i++) {
             System.out.println(i + 1 + "-" + notes.get(i).getTitle() + "\n" + notes.get(i).getContent());
         }
@@ -52,10 +52,10 @@ public class NoteRepository implements INoteManager {
         System.out.println(message);
     }
 
-    public void addDate() {
+    public void showWithDate(List<NoteModel> noteList) {
         Date dateForPublish = new Date();
-        for (int i = 0; i < notes.size(); i++) {
-            NoteModel n = notes.get(i);
+        for (int i = 0; i < noteList.size(); i++) {
+            NoteModel n = noteList.get(i);
             dateForPublish.setTime(n.getPublishDateInMillis());
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 

@@ -11,6 +11,8 @@ public class Main {
         Scanner menuScanner = new Scanner(System.in);
 
         while (true) {
+            List<NoteModel> notes = repository.getAll();
+
             System.out.println("Please choose an operation: ");
             System.out.println(
                     "1- Add note\n" +
@@ -38,19 +40,17 @@ public class Main {
                     repository.add(newNote);
 
                     System.out.println("Note saved");
-                    repository.addDate();
+                    repository.showWithDate(notes);
                     break;
                 }
                 case 2: {
                     // Update note by index of list
-
-                    List<NoteModel> notes = repository.getAll();
                     if (notes.isEmpty()) {
                         System.out.println("There is no any note here");
                         break;
                     }
 
-                    repository.search("Enter index which you want to update...");
+                    repository.showWithMessage("Enter index which you want to update...");
                     int index = Integer.parseInt(menuScanner.next()) - 1;
 
                     String targetId = notes.get(index).getId();
@@ -69,17 +69,16 @@ public class Main {
                     repository.update(targetId, newNote);
 
                     System.out.println("Note updated");
-                    repository.addDate();
+                    repository.showWithDate(notes);
                     break;
                 }
                 case 3: {
                     // Delete note
-                    List<NoteModel> notes = repository.getAll();
                     if (notes.isEmpty()) {
                         System.out.println("There is no any note here");
                         break;
                     }
-                    repository.search("Enter index which you want to delete...");
+                    repository.showWithMessage("Enter index which you want to delete...");
                     int index = Integer.parseInt(menuScanner.next()) - 1;
 
                     String targetId = notes.get(index).getId();
@@ -91,12 +90,11 @@ public class Main {
                 }
                 case 4: {
                     // Find note by id
-                    List<NoteModel> notes = repository.getAll();
                     if (notes.isEmpty()) {
                         System.out.println("There is no any note here");
                         break;
                     }
-                    repository.search("Enter index which you want to show...");
+                    repository.showWithMessage("Enter index which you want to show...");
                     int index = Integer.parseInt(menuScanner.next()) - 1;
 
                     String targetId = notes.get(index).getId();
@@ -118,7 +116,8 @@ public class Main {
                     if (dataSource.isEmpty()) {
                         System.out.println("No notes found to list.");
                     }
-                    repository.addDate();
+                    repository.showWithDate(notes);
+                    break;
                 }
             }
         }
